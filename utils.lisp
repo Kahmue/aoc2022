@@ -24,4 +24,13 @@
       t
       NIL))
 
+(defun skip-rows (num stream)
+  (loop :repeat num
+	:do (read-line stream)))
 
+(defun read-next-number (stream)
+  (loop :for char = (peek-char NIL stream)
+	:while char
+	:do (if (between (char-code char) (char-code #\0) (char-code #\9))
+		(return-from read-next-number (read stream))
+		(read-char stream))))
